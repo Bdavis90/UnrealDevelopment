@@ -31,4 +31,6 @@ public:
 	APawn* OwningPawn;
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	TSubclassOf<class ABaseProjectile> ProjectileClass;
+	UFUNCTION()
+	void Shoot();
 };
