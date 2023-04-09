@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "BaseWeapon.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDispatcher);
+
 UCLASS()
 class ENGINEDEVELOPMENT_API ABaseWeapon : public AActor
 {
@@ -19,8 +21,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	bool Animating = false;
-	UFUNCTION()
-	bool CanShoot();
+	UFUNCTION(BlueprintCallable, Category = "Function")
+	bool CanShoot() const;
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	USkeletalMeshComponent* SkeletalMesh;
 
@@ -31,6 +33,15 @@ public:
 	APawn* OwningPawn;
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	TSubclassOf<class ABaseProjectile> ProjectileClass;
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "Function")
 	void Shoot();
+	UFUNCTION(BlueprintCallable, Category = "Function")
+	void StopAnimation();
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
+	FDispatcher OnShoot;
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
+	FDispatcher OnActionComplete;
+
+	
+	
 };

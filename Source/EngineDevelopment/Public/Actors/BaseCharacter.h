@@ -25,5 +25,14 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	class UChildActorComponent* WeaponChild;
+	TSubclassOf<class ABaseWeapon> WeaponClass;
+	class ABaseWeapon* CurrentWeapon;
+	class URifeAnim* ABP_Rifle;
+	UFUNCTION()
+	void PlayShootAnimation();
+	UFUNCTION()
+	void StopAnimation();
+	class UAnimSequence* ShootAsset;
 
 };

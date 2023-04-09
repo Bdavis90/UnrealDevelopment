@@ -2,6 +2,9 @@
 
 
 #include "Actors/BaseCharacter.h"
+#include "Components/ChildActorComponent.h"
+#include "Actors/BaseWeapon.h"
+#include "../../Public/Core/RifeAnim.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -11,12 +14,22 @@ ABaseCharacter::ABaseCharacter()
 	GetMesh()->SetWorldRotation(FRotator(0.f, -90.f, 0.f));
 	GetMesh()->SetWorldLocation(FVector(0.f, 0.f, -90.f));
 
+	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
+	WeaponChild->SetupAttachment(GetMesh());
+
+	
 }
 
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	WeaponChild->SetChildActorClass(WeaponClass);
+	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
+	//CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
+	/*CurrentWeapon->OnActionComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);*/
+	/*ABP_Rifle = Cast<URifeAnim>(GetMesh()->GetAnimInstance());*/
 
 }
 
@@ -33,4 +46,14 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+void ABaseCharacter::PlayShootAnimation()
+{
+	ABP_Rifle->PlaySlotAnimation(ShootAsset, "Action");
+}
+
+void ABaseCharacter::StopAnimation()
+{
+
+}
+
 
