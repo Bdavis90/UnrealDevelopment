@@ -47,4 +47,13 @@ public:
 	FEventDispatcher OnAssignable;
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 	FEventDispatcher OnDefault;
+
+	//Bind and timer
+	float TimeToCallFunction;
+	// will crash without UFUNCTION
+	UFUNCTION()
+	void TimerCompleted();
+	// will crash without UFUNCTION
+	UFUNCTION()
+	void BindInCode(AActor* Actor);
 };

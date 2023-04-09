@@ -10,12 +10,16 @@ ABindFunction::ABindFunction()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Value = 0.65f;
+	TimeToCallFunction = 2.f;
+	OnDefault.AddDynamic(this, &ABindFunction::BindInCode);
 }
 
 // Called when the game starts or when spawned
 void ABindFunction::BeginPlay()
 {
 	Super::BeginPlay();
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABindFunction::TimerCompleted, TimeToCallFunction, false);
 	
 }
 
@@ -39,5 +43,16 @@ void ABindFunction::BlueprintNativeEvent_Implementation()
 float ABindFunction::Pure() const
 {
 	return Value;
+}
+
+void ABindFunction::TimerCompleted()
+{
+	OnDefault.Broadcast(this); // Call
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Emerald, TEXT("This is broadcastings"));
+}
+
+void ABindFunction::BindInCode(AActor* Actor)
+{
+	UE_LOG(Game, Warning, TEXT("in C++ In Code"));
 }
 
