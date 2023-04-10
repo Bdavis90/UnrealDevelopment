@@ -44,7 +44,8 @@ void ABaseProjectile::Tick(float DeltaTime)
 }
 void ABaseProjectile::HandleCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(Game, Warning, TEXT("%s Destroyed in HandleCollision"), *GetName());
+
+	UE_LOG(Game, Warning, TEXT("%s Destroyed in HandleCollision Destroyed by %s"), *GetName(), *OtherActor->GetName());
 	Destroy();
 }
 

@@ -31,7 +31,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	APawn* OwningPawn;
-	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class ABaseProjectile> ProjectileClass;
 	UFUNCTION(BlueprintCallable, Category = "Function")
 	void Shoot();

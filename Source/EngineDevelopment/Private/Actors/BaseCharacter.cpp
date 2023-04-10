@@ -5,6 +5,7 @@
 #include "Components/ChildActorComponent.h"
 #include "Actors/BaseWeapon.h"
 #include "../../Public/Core/RifeAnim.h"
+#include "../../EngineDevelopment.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -14,7 +15,10 @@ ABaseCharacter::ABaseCharacter()
 	GetMesh()->SetWorldRotation(FRotator(0.f, -90.f, 0.f));
 	GetMesh()->SetWorldLocation(FVector(0.f, 0.f, -90.f));
 
+	FVector WeaponLocation = GetMesh()->GetSocketLocation("WeaponSocket");
+
 	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
+	WeaponChild->SetRelativeLocation(WeaponLocation);
 	WeaponChild->SetupAttachment(GetMesh());
 	
 }
@@ -25,10 +29,14 @@ void ABaseCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	WeaponChild->SetChildActorClass(WeaponClass);
-	AActor* childactor = WeaponChild->GetChildActor();
-	CurrentWeapon = Cast<ABaseWeapon>(childactor);
+	
+	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
+	if (!CurrentWeapon)
+	{
+		UE_LOG(Game, Error, TEXT("Character needs a weapon"))
+	}
 	//CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
-	/*CurrentWeapon->OnActionComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);*/
+	//CurrentWeapon->OnActionComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
 	ABP_Rifle = Cast<URifeAnim>(GetMesh()->GetAnimInstance());
 
 }
@@ -53,7 +61,12 @@ void ABaseCharacter::PlayShootAnimation()
 
 void ABaseCharacter::StopAnimation()
 {
+	CurrentWeapon->StopAnimation();
+}
 
+void ABaseCharacter::CharacterShoot()
+{
+	CurrentWeapon->Shoot();
 }
 
 

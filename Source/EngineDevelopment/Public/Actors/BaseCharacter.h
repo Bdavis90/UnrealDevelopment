@@ -31,11 +31,14 @@ public:
 	TSubclassOf<class ABaseWeapon> WeaponClass;
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	class ABaseWeapon* CurrentWeapon;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class URifeAnim* ABP_Rifle;
 	UFUNCTION()
 	void PlayShootAnimation();
 	UFUNCTION()
 	void StopAnimation();
 	class UAnimSequence* ShootAsset;
+	UFUNCTION()
+	void CharacterShoot();
 
 };

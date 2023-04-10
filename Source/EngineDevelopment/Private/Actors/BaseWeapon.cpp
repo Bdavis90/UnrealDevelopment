@@ -49,7 +49,7 @@ void ABaseWeapon::Shoot()
 	FActorSpawnParameters Params;
 	Params.Owner = OwningPawn->GetController();
 	Params.Instigator = OwningPawn;
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SocketLocation, AimRotation, Params);
+	AActor* spawn = GetWorld()->SpawnActor<AActor>(ProjectileClass, SocketLocation, AimRotation, Params);
 	Animating = true;
 }
 
