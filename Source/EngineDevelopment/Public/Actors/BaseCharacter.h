@@ -25,8 +25,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UPROPERTY(VisibleAnywhere, Category = "Child Component")
 	class UChildActorComponent* WeaponChild;
+	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TSubclassOf<class ABaseWeapon> WeaponClass;
+	UPROPERTY(EditAnywhere, Category = "Weapon")
 	class ABaseWeapon* CurrentWeapon;
 	class URifeAnim* ABP_Rifle;
 	UFUNCTION()

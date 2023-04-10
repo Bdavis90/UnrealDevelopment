@@ -10,13 +10,12 @@
 ABaseCharacter::ABaseCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	GetMesh()->SetWorldRotation(FRotator(0.f, -90.f, 0.f));
 	GetMesh()->SetWorldLocation(FVector(0.f, 0.f, -90.f));
 
 	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
 	WeaponChild->SetupAttachment(GetMesh());
-
 	
 }
 
@@ -26,10 +25,11 @@ void ABaseCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	WeaponChild->SetChildActorClass(WeaponClass);
-	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
+	AActor* childactor = WeaponChild->GetChildActor();
+	CurrentWeapon = Cast<ABaseWeapon>(childactor);
 	//CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
 	/*CurrentWeapon->OnActionComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);*/
-	/*ABP_Rifle = Cast<URifeAnim>(GetMesh()->GetAnimInstance());*/
+	ABP_Rifle = Cast<URifeAnim>(GetMesh()->GetAnimInstance());
 
 }
 
@@ -48,7 +48,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 }
 void ABaseCharacter::PlayShootAnimation()
 {
-	ABP_Rifle->PlaySlotAnimation(ShootAsset, "Action");
+	ABP_Rifle->PlaySlotAnimationAsDynamicMontage(ShootAsset, "Action");
 }
 
 void ABaseCharacter::StopAnimation()
