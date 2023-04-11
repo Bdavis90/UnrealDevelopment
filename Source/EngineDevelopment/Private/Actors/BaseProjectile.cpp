@@ -22,6 +22,7 @@ ABaseProjectile::ABaseProjectile()
 	ConstructorHelpers::FObjectFinder<UStaticMesh>Asset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	Mesh->SetStaticMesh(Asset.Object);
 	Mesh->SetWorldScale3D(FVector(.6f, .6f, .6f));
+	Mesh->SetCollisionProfileName("NoCollision");
 
 	Movement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Movement"));
 

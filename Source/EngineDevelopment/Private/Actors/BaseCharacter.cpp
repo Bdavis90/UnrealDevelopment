@@ -11,33 +11,35 @@
 ABaseCharacter::ABaseCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	GetMesh()->SetWorldRotation(FRotator(0.f, -90.f, 0.f));
 	GetMesh()->SetWorldLocation(FVector(0.f, 0.f, -90.f));
 
-	FVector WeaponLocation = GetMesh()->GetSocketLocation("WeaponSocket");
-
 	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
-	WeaponChild->SetRelativeLocation(WeaponLocation);
-	WeaponChild->SetupAttachment(GetMesh());
+	WeaponChild->SetupAttachment(GetMesh(), TEXT("WeaponSocket"));
 	
+
 }
 
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	WeaponChild->SetChildActorClass(WeaponClass);
 	
 	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
+	CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
 	if (!CurrentWeapon)
 	{
 		UE_LOG(Game, Error, TEXT("Character needs a weapon"))
 	}
-	//CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
-	//CurrentWeapon->OnActionComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
+
 	ABP_Rifle = Cast<URifeAnim>(GetMesh()->GetAnimInstance());
+	if (ABP_Rifle)
+	{
+		auto name = GetName();
+		ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
+	}
+
 
 }
 
@@ -56,7 +58,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 }
 void ABaseCharacter::PlayShootAnimation()
 {
-	ABP_Rifle->PlaySlotAnimationAsDynamicMontage(ShootAsset, "Action");
+	ABP_Rifle->PlaySlotAnimationAsDynamicMontage(ShootAsset, TEXT("Action"));
 }
 
 void ABaseCharacter::StopAnimation()
@@ -68,5 +70,7 @@ void ABaseCharacter::CharacterShoot()
 {
 	CurrentWeapon->Shoot();
 }
+
+
 
 

@@ -8,13 +8,14 @@
 // Sets default values
 ABaseWeapon::ABaseWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
 	RootComponent = SkeletalMesh;
 
-	OnShoot.AddDynamic(this, &ABaseWeapon::Shoot);
-	OnActionComplete.AddDynamic(this, &ABaseWeapon::StopAnimation);
+	ConstructorHelpers::FObjectFinder<USkeletalMesh>Asset(TEXT("SkeletalMesh'/Game/END_Starter/Guns/Rifle/SK_Rifle.SK_Rifle'"));
+	SkeletalMesh->SetSkeletalMesh(Asset.Object);
+	SetRootComponent(SkeletalMesh);
 }
 
 // Called when the game starts or when spawned
@@ -43,14 +44,19 @@ void ABaseWeapon::Tick(float DeltaTime)
 
 void ABaseWeapon::Shoot()
 {
-	FVector SocketLocation = SkeletalMesh->GetSocketLocation("MuzzleFlashSocket");
-	FRotator AimRotation = OwningPawn->GetBaseAimRotation();
-	AController* OwnerController = OwningPawn->GetController();
-	FActorSpawnParameters Params;
-	Params.Owner = OwningPawn->GetController();
-	Params.Instigator = OwningPawn;
-	AActor* spawn = GetWorld()->SpawnActor<AActor>(ProjectileClass, SocketLocation, AimRotation, Params);
-	Animating = true;
+	if (!Animating)
+	{
+		FActorSpawnParameters Params;
+		Params.Owner = GetWorld()->GetFirstPlayerController();
+		Params.Instigator = OwningPawn;
+
+		GetWorld()->SpawnActor<AActor>(ProjectileClass, SkeletalMesh->GetSocketLocation(TEXT("MuzzleFlashSocket")), OwningPawn->GetBaseAimRotation(), Params);
+
+		Animating = true;
+
+		OnShoot.Broadcast();
+	}
+
 }
 
 void ABaseWeapon::StopAnimation()

@@ -6,9 +6,8 @@
 #include "Animation/AnimInstance.h"
 #include "RifeAnim.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FActionCompleteDispatcher);
+
 UCLASS()
 class ENGINEDEVELOPMENT_API URifeAnim : public UAnimInstance
 {
@@ -20,4 +19,10 @@ public:
 	float Speed;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere);
 	float Direction;
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
+		FActionCompleteDispatcher OnComplete;
+	UFUNCTION()
+		void AnimationComplete();
+	
+
 };

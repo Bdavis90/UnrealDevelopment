@@ -28,7 +28,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Child Component")
 	class UChildActorComponent* WeaponChild;
 	UPROPERTY(EditAnywhere, Category = "Weapon")
-	TSubclassOf<class ABaseWeapon> WeaponClass;
+	class ABaseWeapon* WeaponClass;
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	class ABaseWeapon* CurrentWeapon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -37,6 +37,7 @@ public:
 	void PlayShootAnimation();
 	UFUNCTION()
 	void StopAnimation();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UAnimSequence* ShootAsset;
 	UFUNCTION()
 	void CharacterShoot();

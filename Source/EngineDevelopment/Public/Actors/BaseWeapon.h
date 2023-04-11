@@ -6,7 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "BaseWeapon.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDispatcher);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShootDispatcher);
+
 
 UCLASS()
 class ENGINEDEVELOPMENT_API ABaseWeapon : public AActor
@@ -38,9 +39,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Function")
 	void StopAnimation();
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
-	FDispatcher OnShoot;
-	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
-	FDispatcher OnActionComplete;
+	FShootDispatcher OnShoot;
+
 
 	
 	

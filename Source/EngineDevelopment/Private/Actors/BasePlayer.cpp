@@ -38,13 +38,12 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABasePlayer::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABasePlayer::MoveRight);
 	PlayerInputComponent->BindAction("Shoot", IE_Pressed, this, &ABaseCharacter::CharacterShoot);
-
 }
 
 void ABasePlayer::MoveForward(float Value)
 {
 	FRotator MakeRotation = FRotator(0.f, GetControlRotation().Yaw, 0.f);
-	
+
 	AddMovementInput(MakeRotation.Vector().ForwardVector, Value);
 }
 
@@ -54,4 +53,5 @@ void ABasePlayer::MoveRight(float Value)
 
 	AddMovementInput(MakeRotation.Vector().RightVector, Value);
 }
+
 

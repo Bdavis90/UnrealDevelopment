@@ -16,3 +16,8 @@ void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
 		Direction = CalculateDirection(Vel, Rot);
 	}
 }
+
+void URifeAnim::AnimationComplete()
+{
+	OnComplete.Broadcast();
+}
