@@ -22,5 +22,6 @@ protected:
 public:
 	UMyUserWidget(const FObjectInitializer& ObjectInitializer);
 	void NativeConstruct() override;
+	UFUNCTION()
 	void SetHealth(float Ratio);
 };

@@ -14,6 +14,7 @@ class ENGINEDEVELOPMENT_API URifeAnim : public UAnimInstance
 	GENERATED_BODY()
 	
 public:
+	URifeAnim();
 	void NativeUpdateAnimation(float DeltaSeconds) override;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere);
 	float Speed;
@@ -23,6 +24,10 @@ public:
 		FActionCompleteDispatcher OnComplete;
 	UFUNCTION()
 		void AnimationComplete();
+	UFUNCTION(BlueprintCallable)
+		void PlayShootAnimation();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UAnimSequence* ShootAsset;
 	
 
 };

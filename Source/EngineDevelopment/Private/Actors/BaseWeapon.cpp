@@ -44,7 +44,7 @@ void ABaseWeapon::Tick(float DeltaTime)
 
 void ABaseWeapon::Shoot()
 {
-	if (!Animating)
+	if (CanShoot())
 	{
 		FActorSpawnParameters Params;
 		Params.Owner = GetWorld()->GetFirstPlayerController();

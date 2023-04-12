@@ -17,7 +17,7 @@ ABaseCharacter::ABaseCharacter()
 
 	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
 	WeaponChild->SetupAttachment(GetMesh(), TEXT("WeaponSocket"));
-	
+
 
 }
 
@@ -25,20 +25,22 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
 	CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
 	if (!CurrentWeapon)
 	{
-		UE_LOG(Game, Error, TEXT("Character needs a weapon"))
+		UE_LOG(Game, Error, TEXT("Character needs a weapon"));
+		return;
 	}
 
 	ABP_Rifle = Cast<URifeAnim>(GetMesh()->GetAnimInstance());
-	if (ABP_Rifle)
+	if (!ABP_Rifle)
 	{
-		auto name = GetName();
-		ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
+		UE_LOG(Game, Error, TEXT("Character needs a ABP_Rifle"));
+		return;
 	}
+	ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
 
 
 }

@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "../../EngineDevelopment.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABaseProjectile::ABaseProjectile()
@@ -45,9 +46,10 @@ void ABaseProjectile::Tick(float DeltaTime)
 }
 void ABaseProjectile::HandleCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
-	UE_LOG(Game, Warning, TEXT("%s Destroyed in HandleCollision Destroyed by %s"), *GetName(), *OtherActor->GetName());
+	UGameplayStatics::ApplyDamage(OtherActor, Damage, GetInstigatorController(), GetInstigator(), NULL);
+	UE_LOG(Game, Warning, TEXT("%s Destroyed in HandleCollision Destroyed by %s with %f damage"), *GetName(), *OtherActor->GetName(), Damage);
 	Destroy();
+	
 }
 
 void ABaseProjectile::TimerEnded()

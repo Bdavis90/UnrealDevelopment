@@ -33,4 +33,6 @@ public:
 	float TimeToDestroy;
 	UFUNCTION()
 	void TimerEnded();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Damage;
 };

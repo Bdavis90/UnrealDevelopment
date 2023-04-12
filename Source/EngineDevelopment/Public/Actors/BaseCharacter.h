@@ -33,7 +33,7 @@ public:
 	class ABaseWeapon* CurrentWeapon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class URifeAnim* ABP_Rifle;
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void PlayShootAnimation();
 	UFUNCTION()
 	void StopAnimation();

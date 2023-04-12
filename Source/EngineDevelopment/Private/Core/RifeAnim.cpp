@@ -3,6 +3,12 @@
 
 #include "Core/RifeAnim.h"
 
+URifeAnim::URifeAnim()
+{
+	ConstructorHelpers::FObjectFinder<UAnimSequence>Asset(TEXT("AnimSequence'/Game/END_Starter/Mannequin/A_Fire_Ironsights.A_Fire_Ironsights'"));
+	ShootAsset = Asset.Object;
+}
+
 void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
@@ -20,4 +26,9 @@ void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
 void URifeAnim::AnimationComplete()
 {
 	OnComplete.Broadcast();
+}
+
+void URifeAnim::PlayShootAnimation()
+{
+	PlaySlotAnimationAsDynamicMontage(ShootAsset, TEXT("Action"));
 }
