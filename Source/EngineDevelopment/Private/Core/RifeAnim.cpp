@@ -7,6 +7,8 @@ URifeAnim::URifeAnim()
 {
 	ConstructorHelpers::FObjectFinder<UAnimSequence>Asset(TEXT("AnimSequence'/Game/END_Starter/Mannequin/A_Fire_Ironsights.A_Fire_Ironsights'"));
 	ShootAsset = Asset.Object;
+	DebugShoot = false;
+	DebugDeath = false;
 }
 
 void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
@@ -21,6 +23,10 @@ void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
 		Speed = Vel.Size();
 		Direction = CalculateDirection(Vel, Rot);
 	}
+	else
+	{
+		PersonaUpdate_Implementation();
+	}
 }
 
 void URifeAnim::AnimationComplete()
@@ -31,4 +37,26 @@ void URifeAnim::AnimationComplete()
 void URifeAnim::PlayShootAnimation()
 {
 	PlaySlotAnimationAsDynamicMontage(ShootAsset, TEXT("Action"));
+}
+
+
+void URifeAnim::PersonaUpdate_Implementation()
+{
+	if (DebugShoot)
+	{
+		DebugShoot = false;
+		PlayShootAnimation();
+	}
+
+	if (DebugDeath)
+	{
+		DebugDeath = false;
+		PlayDeathAnim(0);
+	}
+}
+
+void URifeAnim::PlayDeathAnim(float Ratio)
+{
+	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
+	CurrentDeath = DeathAnimations[DeathIndex];
 }

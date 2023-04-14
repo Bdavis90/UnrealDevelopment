@@ -34,6 +34,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "HUD")
 	TSubclassOf<class UMyUserWidget> WidgetClass;
 	class UMyUserWidget* HUD;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
-	class UHealthComponent* HealthComponent;
+	void CharacterDeath(float Ratio) override;
+	APlayerController* PlayerController;
+
 };

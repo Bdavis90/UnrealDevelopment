@@ -40,6 +40,7 @@ public:
 	void StopAnimation();
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 	FShootDispatcher OnShoot;
+	bool Dead = false;
 
 
 	

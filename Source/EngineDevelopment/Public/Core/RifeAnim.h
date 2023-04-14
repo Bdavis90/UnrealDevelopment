@@ -22,12 +22,27 @@ public:
 	float Direction;
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 		FActionCompleteDispatcher OnComplete;
+
 	UFUNCTION()
 		void AnimationComplete();
 	UFUNCTION(BlueprintCallable)
 		void PlayShootAnimation();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UAnimSequence* ShootAsset;
-	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void PersonaUpdate();
+	virtual void PersonaUpdate_Implementation();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool DebugShoot;
+	UPROPERTY(BlueprintReadonly, EditAnywhere, Category = "Death")
+		TArray<class UAnimSequence*> DeathAnimations;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UAnimSequence* CurrentDeath;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int DeathIndex = -1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool DebugDeath;
+	UFUNCTION()
+		void PlayDeathAnim(float Ratio);
 
 };

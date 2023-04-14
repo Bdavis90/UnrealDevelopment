@@ -17,13 +17,19 @@ ABasePlayer::ABasePlayer()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
+
+}
+
+void ABasePlayer::CharacterDeath(float Ratio)
+{
+	Super::CharacterDeath(Ratio);
+	DisableInput(PlayerController);
 }
 
 void ABasePlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	PlayerController = Cast<APlayerController>(GetController());
 	if (!PlayerController)
 	{
 		UE_LOG(Game, Error, TEXT("Need player controller for HUD"));

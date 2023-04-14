@@ -32,7 +32,9 @@ void ABaseWeapon::BeginPlay()
 
 bool ABaseWeapon::CanShoot() const
 {
-	return !Animating;
+	if(!Animating && !Dead)
+		return true;
+	return false;
 }
 
 // Called every frame
