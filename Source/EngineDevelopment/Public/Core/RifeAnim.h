@@ -31,18 +31,24 @@ public:
 		class UAnimSequence* ShootAsset;
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void PersonaUpdate();
-	virtual void PersonaUpdate_Implementation();
+	void PersonaUpdate_Implementation();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool DebugShoot;
-	UPROPERTY(BlueprintReadonly, EditAnywhere, Category = "Death")
-		TArray<class UAnimSequence*> DeathAnimations;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UAnimSequence* CurrentDeath;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int DeathIndex = -1;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool DebugDeath;
-	UFUNCTION()
-		void PlayDeathAnim(float Ratio);
+	//UPROPERTY(BlueprintReadonly, EditAnywhere, Category = "Death")
+	//	TArray<class UAnimSequence*> DeathAnimations;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	class UAnimSequence* CurrentDeath;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	class UAnimSequence* DamagedAnimation;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	//int DeathIndex = -1;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	bool DebugDeath;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	bool DebugDamaged;
+	//UFUNCTION()
+	//	void PlayDeathAnim(float Ratio);
+	//UFUNCTION()
+	//	void PlayDamagedAnim(float Ratio);
 
 };

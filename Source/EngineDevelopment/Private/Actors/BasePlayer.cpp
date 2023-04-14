@@ -17,14 +17,15 @@ ABasePlayer::ABasePlayer()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 
 }
 
-void ABasePlayer::CharacterDeath(float Ratio)
-{
-	Super::CharacterDeath(Ratio);
-	DisableInput(PlayerController);
-}
+//void ABasePlayer::CharacterDeath(float Ratio)
+//{
+//	Super::CharacterDeath(Ratio);
+//	DisableInput(PlayerController);
+//}
 
 void ABasePlayer::BeginPlay()
 {
@@ -38,8 +39,8 @@ void ABasePlayer::BeginPlay()
 	HUD = CreateWidget<UMyUserWidget>(PlayerController, WidgetClass);
 	HUD->AddToViewport();
 
-	HealthComponent->OnDamage.AddDynamic(this, &ABasePlayer::SetHealth);
-	HealthComponent->OnDeath.AddDynamic(this, &ABasePlayer::SetHealth);
+	HealthComponent->OnDamage.AddDynamic(HUD, &UMyUserWidget::SetHealth);
+	HealthComponent->OnDeath.AddDynamic(HUD, &UMyUserWidget::SetHealth);
 }
 
 void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -65,11 +66,6 @@ void ABasePlayer::MoveRight(float Value)
 	FRotator MakeRotation = FRotator(0.f, GetControlRotation().Yaw, 0.f);
 
 	AddMovementInput(FRotationMatrix(MakeRotation).GetScaledAxis(EAxis::Y), Value);
-}
-
-void ABasePlayer::SetHealth(float Ratio)
-{
-	HUD->SetHealth(Ratio);
 }
 
 

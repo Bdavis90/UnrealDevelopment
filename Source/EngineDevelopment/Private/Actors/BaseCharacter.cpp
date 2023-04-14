@@ -22,7 +22,7 @@ ABaseCharacter::ABaseCharacter()
 	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
 	WeaponChild->SetupAttachment(GetMesh(), TEXT("WeaponSocket"));
 
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
+	//HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 
 }
 
@@ -46,7 +46,7 @@ void ABaseCharacter::BeginPlay()
 		return;
 	}
 	ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
-	HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::CharacterDeath);
+	//HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::CharacterDeath);
 
 }
 
@@ -78,13 +78,13 @@ void ABaseCharacter::CharacterShoot()
 	CurrentWeapon->Shoot();
 }
 
-void ABaseCharacter::CharacterDeath(float Ratio)
-{
-	GetCharacterMovement()->StopMovementImmediately();
-	ABP_Rifle->PlayDeathAnim(Ratio);
-	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	CurrentWeapon->Dead = true;
-}
+//void ABaseCharacter::CharacterDeath(float Ratio)
+//{
+//	GetCharacterMovement()->StopMovementImmediately();
+//	ABP_Rifle->PlayDeathAnim(Ratio);
+//	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+//	CurrentWeapon->Dead = true;
+//}
 
 
 

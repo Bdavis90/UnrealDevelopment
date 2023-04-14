@@ -27,14 +27,14 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void MoveForward(float Value);
 	void MoveRight(float Value);
-	UFUNCTION()
-	void SetHealth(float Ratio);
 public:
 	ABasePlayer();
 	UPROPERTY(EditAnywhere, Category = "HUD")
 	TSubclassOf<class UMyUserWidget> WidgetClass;
 	class UMyUserWidget* HUD;
-	void CharacterDeath(float Ratio) override;
+	//void CharacterDeath(float Ratio) override;
 	APlayerController* PlayerController;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+		class UHealthComponent* HealthComponent;
 
 };

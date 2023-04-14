@@ -40,9 +40,8 @@ void UHealthComponent::SetStartHealth()
 
 void UHealthComponent::HandleDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	float RemainingDamage = Current - Damage;
-	float NewDamage = FMath::Clamp<float>(RemainingDamage, 0, Max);
-	Current = NewDamage;
+	Current = FMath::Clamp<float>(Current - Damage, 0, Max);
+
 	UE_LOG(LogTemp, Warning, TEXT("Current Health %f"), Current);
 	if (Current > 0)
 	{
