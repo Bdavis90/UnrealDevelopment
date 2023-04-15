@@ -56,4 +56,8 @@ public:
 	// will crash without UFUNCTION
 	UFUNCTION()
 	void BindInCode(AActor* Actor);
+
+	//Multiple returns
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = Fucntion)
+	bool MultipleReturns(AActor* Actor1, int32& Index, AActor*& Actor2);
 };

@@ -6,9 +6,9 @@
 
 void UShootState::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
 {
-    if (Cast<URifeAnim>(MeshComp->GetAnimInstance()))
-    {
-        URifeAnim* RifleAinmRef = Cast<URifeAnim>(MeshComp->GetAnimInstance());
-        RifleAinmRef->AnimationComplete();
-    }
+	URifeAnim* RifleAinmRef = Cast<URifeAnim>(MeshComp->GetAnimInstance());
+	if (RifleAinmRef)
+	{
+		RifleAinmRef->AnimationComplete();
+	}
 }

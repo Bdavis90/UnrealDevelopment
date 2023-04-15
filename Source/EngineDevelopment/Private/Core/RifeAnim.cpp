@@ -8,7 +8,7 @@ URifeAnim::URifeAnim()
 	ConstructorHelpers::FObjectFinder<UAnimSequence>Asset(TEXT("AnimSequence'/Game/END_Starter/Mannequin/A_Fire_Ironsights.A_Fire_Ironsights'"));
 	ShootAsset = Asset.Object;
 	DebugShoot = false;
-	//DebugDeath = false;
+	DebugDeath = false;
 }
 
 void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
@@ -25,7 +25,7 @@ void URifeAnim::NativeUpdateAnimation(float DeltaSeconds)
 	}
 	else
 	{
-		//PersonaUpdate_Implementation();
+		PersonaUpdate_Implementation();
 	}
 }
 
@@ -48,25 +48,25 @@ void URifeAnim::PersonaUpdate_Implementation()
 		PlayShootAnimation();
 	}
 
-	//if (DebugDeath)
-	//{
-	//	DebugDeath = false;
-	//	PlayDeathAnim(0);
-	//}
-	//else if(DebugDamaged)
-	//{
-	//	DebugDamaged = false;
-	//	PlayDamagedAnim(0);
-	//}
+	if (DebugDeath)
+	{
+		DebugDeath = false;
+		PlayDeathAnimation(0);
+	}
+	else if(DebugDamaged)
+	{
+		DebugDamaged = false;
+		PlayDamagedAnimation(0);
+	}
 }
 
-//void URifeAnim::PlayDeathAnim(float Ratio)
-//{
-//	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
-//	CurrentDeath = DeathAnimations[DeathIndex];
-//}
-//
-//void URifeAnim::PlayDamagedAnim(float Ratio)
-//{
-//	PlaySlotAnimationAsDynamicMontage(DamagedAnimation, TEXT("Action"));
-//}
+void URifeAnim::PlayDeathAnimation(float Ratio)
+{
+	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
+	CurrentDeath = DeathAnimations[DeathIndex];
+}
+
+void URifeAnim::PlayDamagedAnimation(float Ratio)
+{
+	PlaySlotAnimationAsDynamicMontage(DamagedAnimation, TEXT("Damage"));
+}

@@ -45,8 +45,7 @@ void UHealthComponent::HandleDamage(AActor* DamagedActor, float Damage, const UD
 	UE_LOG(LogTemp, Warning, TEXT("Current Health %f"), Current);
 	if (Current > 0)
 	{
-		float Ratio = Current / Max;
-		OnDamage.Broadcast(Ratio);
+		OnDamage.Broadcast(Current / Max);
 		return;
 	}
 

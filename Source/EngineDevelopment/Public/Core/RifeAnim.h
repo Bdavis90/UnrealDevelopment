@@ -16,39 +16,54 @@ class ENGINEDEVELOPMENT_API URifeAnim : public UAnimInstance
 public:
 	URifeAnim();
 	void NativeUpdateAnimation(float DeltaSeconds) override;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere);
 	float Speed;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere);
 	float Direction;
+
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 		FActionCompleteDispatcher OnComplete;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void AnimationComplete();
+
 	UFUNCTION(BlueprintCallable)
 		void PlayShootAnimation();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UAnimSequence* ShootAsset;
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void PersonaUpdate();
 	void PersonaUpdate_Implementation();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool DebugShoot;
-	//UPROPERTY(BlueprintReadonly, EditAnywhere, Category = "Death")
-	//	TArray<class UAnimSequence*> DeathAnimations;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	class UAnimSequence* CurrentDeath;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	class UAnimSequence* DamagedAnimation;
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	//int DeathIndex = -1;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	bool DebugDeath;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	bool DebugDamaged;
-	//UFUNCTION()
-	//	void PlayDeathAnim(float Ratio);
-	//UFUNCTION()
-	//	void PlayDamagedAnim(float Ratio);
+
+	UPROPERTY(BlueprintReadonly, EditAnywhere, Category = "Death")
+		TArray<class UAnimSequence*> DeathAnimations;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
+		class UAnimSequence* CurrentDeath;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
+		class UAnimSequence* DamagedAnimation;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Death")
+	int DeathIndex = -1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
+		bool DebugDeath;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
+		bool DebugDamaged;
+
+	UFUNCTION(BlueprintCallable)
+		void PlayDeathAnimation(float Ratio);
+
+	UFUNCTION(BlueprintCallable)
+		void PlayDamagedAnimation(float Ratio);
 
 };

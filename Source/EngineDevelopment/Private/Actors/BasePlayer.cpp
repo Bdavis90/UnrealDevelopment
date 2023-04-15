@@ -17,15 +17,15 @@ ABasePlayer::ABasePlayer()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
+	//HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 
 }
 
-//void ABasePlayer::CharacterDeath(float Ratio)
-//{
-//	Super::CharacterDeath(Ratio);
-//	DisableInput(PlayerController);
-//}
+void ABasePlayer::CharacterDeath(float Ratio)
+{
+	Super::CharacterDeath(Ratio);
+	DisableInput(PlayerController);
+}
 
 void ABasePlayer::BeginPlay()
 {

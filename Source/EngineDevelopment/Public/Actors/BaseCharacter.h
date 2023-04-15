@@ -41,7 +41,12 @@ public:
 	class UAnimSequence* ShootAsset;
 	UFUNCTION()
 	void CharacterShoot();
-	//UFUNCTION()
-	//	virtual void CharacterDeath(float Ratio);
+	UFUNCTION()
+	virtual void CharacterDeath(float Ratio);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+		class UHealthComponent* HealthComponent;
+
+	UFUNCTION()
+		void CharacterDamage(float Ratio);
 
 };
