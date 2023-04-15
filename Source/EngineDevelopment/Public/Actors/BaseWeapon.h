@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "../Widgets/MyUserWidget.h"
 #include "BaseWeapon.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShootDispatcher);
@@ -21,26 +22,38 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
 	bool Animating = false;
+
 	UFUNCTION(BlueprintCallable, Category = "Function")
 	bool CanShoot() const;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	USkeletalMeshComponent* SkeletalMesh;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	APawn* OwningPawn;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class ABaseProjectile> ProjectileClass;
+
 	UFUNCTION(BlueprintCallable, Category = "Function")
 	void Shoot();
+
 	UFUNCTION(BlueprintCallable, Category = "Function")
 	void StopAnimation();
+
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 	FShootDispatcher OnShoot;
+
 	bool Dead = false;
+	
+	UFUNCTION(BlueprintCallable)
+	FRotator GetShotRotation();
 
 
 	

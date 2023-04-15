@@ -4,6 +4,9 @@
 #include "Actors/BaseWeapon.h"
 #include "../../EngineDevelopment.h"
 #include "Actors/BaseProjectile.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
+
 
 // Sets default values
 ABaseWeapon::ABaseWeapon()
@@ -52,7 +55,7 @@ void ABaseWeapon::Shoot()
 		Params.Owner = GetWorld()->GetFirstPlayerController();
 		Params.Instigator = OwningPawn;
 
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SkeletalMesh->GetSocketLocation(TEXT("MuzzleFlashSocket")), OwningPawn->GetBaseAimRotation(), Params);
+		GetWorld()->SpawnActor<AActor>(ProjectileClass, SkeletalMesh->GetSocketLocation(TEXT("MuzzleFlashSocket")), GetShotRotation(), Params);
 
 		Animating = true;
 
@@ -64,5 +67,32 @@ void ABaseWeapon::Shoot()
 void ABaseWeapon::StopAnimation()
 {
 	Animating = false;
+}
+
+FRotator ABaseWeapon::GetShotRotation()
+{
+
+	TArray<UUserWidget*> Actors;
+	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), Actors, UMyUserWidget::StaticClass(), false);
+
+	FRotator Rotation = OwningPawn->GetBaseAimRotation();
+	if (Actors.Num() > 0)
+	{
+		UMyUserWidget* HUDRef = Cast<UMyUserWidget>(Actors[0]);
+
+		if (HUDRef && HUDRef->GetOwningPlayerPawn() == OwningPawn)
+		{
+			bool BHit;
+			FVector HitLoc;
+			FVector EndLoc;
+			HUDRef->GetAimedPoint(BHit, HitLoc, EndLoc);
+
+			FVector Destination = BHit ? HitLoc : EndLoc;
+
+			Rotation = UKismetMathLibrary::MakeRotFromX(Destination -= SkeletalMesh->GetSocketLocation(TEXT("MuzzleFlashSocket")));
+		}
+	}
+
+	return Rotation;
 }
 

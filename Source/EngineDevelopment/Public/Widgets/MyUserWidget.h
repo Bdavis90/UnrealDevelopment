@@ -16,12 +16,46 @@ class ENGINEDEVELOPMENT_API UMyUserWidget : public UUserWidget
 	
 protected:
 	UPROPERTY(BlueprintReadonly, meta=(BindWidget))
-	class UProgressBar* Health;
+	class UProgressBar* Health = nullptr;
+
 	UPROPERTY(BlueprintReadonly, meta = (BindWidget))
-	class UImage* Reticle;
+	class UImage* Reticle = nullptr;
+
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+		UMaterialInstanceDynamic* DynamicMaterial = nullptr;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FVector HitLocation;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FVector EndPoint;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bValidHit = false;
+
 public:
 	UMyUserWidget(const FObjectInitializer& ObjectInitializer);
 	void NativeConstruct() override;
-	UFUNCTION()
+
+	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
 	void SetHealth(float Ratio);
+
+	UFUNCTION(BlueprintCallable)
+		void SetMatColor(FLinearColor Color);
+
+	UFUNCTION()
+		void GetLinePoints(FVector& _StartPoint, FVector& _EndPoint) const;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+		FLinearColor DangerColor = FLinearColor(1, 0, 0, 1);
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+		FLinearColor DefaultColor = FLinearColor(0, 0.7, 0.7, 1);
+
+	UFUNCTION(BlueprintCallable)
+		void GetAimedPoint(bool& Valid, FVector& Hit, FVector& End) const;
+
 };
