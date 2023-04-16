@@ -7,5 +7,13 @@
 void ABaseAI::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+}
+
+void ABaseAI::Shoot()
+{
 	CurrentWeapon->Shoot();
 }
+
+
+

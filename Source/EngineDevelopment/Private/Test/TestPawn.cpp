@@ -3,6 +3,8 @@
 
 #include "Test/TestPawn.h"
 #include "../../EngineDevelopment.h"
+#include "Test/CodeInterface.h"
+#include "EngineUtils.h"
 
 // Sets default values
 ATestPawn::ATestPawn()
@@ -19,7 +21,22 @@ void ATestPawn::BeginPlay()
 	FActorSpawnParameters Params;
 	Params.Owner = GetController();
 	Params.Instigator = this;
-	GetWorld()->SpawnActor<AActor>(ClassType, FTransform(), Params);
+	//GetWorld()->SpawnActor<AActor>(ClassType, FTransform(), Params);
+	for (TActorIterator<AActor> it(GetWorld()); it; ++it)
+	{
+		UCodeInterface* U = Cast<UCodeInterface>(*it);
+		if (U)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("I AM U"));
+		}
+
+		ICodeInterface* I = Cast<ICodeInterface>(*it);
+		if (I)
+		{
+			I->BlueprintCallable();
+			UE_LOG(LogTemp, Warning, TEXT("I AM I"));
+		}
+	}
 }
 
 // Called every frame

@@ -72,22 +72,23 @@ void ABaseWeapon::StopAnimation()
 FRotator ABaseWeapon::GetShotRotation()
 {
 
-	TArray<UUserWidget*> Actors;
-	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), Actors, UMyUserWidget::StaticClass(), false);
+	TArray<UUserWidget*> Widgets;
+	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), Widgets, UMyUserWidget::StaticClass(), false);
 
 	FRotator Rotation = OwningPawn->GetBaseAimRotation();
-	if (Actors.Num() > 0)
+
+	if (Widgets.Num() > 0)
 	{
-		UMyUserWidget* HUDRef = Cast<UMyUserWidget>(Actors[0]);
+		UMyUserWidget* WidgetRef = Cast<UMyUserWidget>(Widgets[0]);
 
-		if (HUDRef && HUDRef->GetOwningPlayerPawn() == OwningPawn)
+		if (WidgetRef && WidgetRef->GetOwningPlayerPawn() == OwningPawn)
 		{
-			bool BHit;
-			FVector HitLoc;
-			FVector EndLoc;
-			HUDRef->GetAimedPoint(BHit, HitLoc, EndLoc);
+			bool bHit;
+			FVector HitLocation;
+			FVector EndLocation;
+			WidgetRef->GetAimedPoint(bHit, HitLocation, EndLocation);
 
-			FVector Destination = BHit ? HitLoc : EndLoc;
+			FVector Destination = bHit ? HitLocation : EndLocation;
 
 			Rotation = UKismetMathLibrary::MakeRotFromX(Destination -= SkeletalMesh->GetSocketLocation(TEXT("MuzzleFlashSocket")));
 		}
