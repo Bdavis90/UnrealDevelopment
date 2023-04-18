@@ -7,6 +7,9 @@
 #include "../../EngineDevelopment.h"
 #include "Widgets/MyUserWidget.h"
 #include "Components/HealthComponent.h"
+#include "Actors/BaseWeapon.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
 
 ABasePlayer::ABasePlayer()
 {
@@ -25,6 +28,15 @@ void ABasePlayer::CharacterDeath(float Ratio)
 {
 	Super::CharacterDeath(Ratio);
 	DisableInput(PlayerController);
+}
+
+void ABasePlayer::WonLevel()
+{
+	HUD->RemoveFromParent();
+	GetController()->SetIgnoreLookInput(true);
+	CurrentWeapon->Dead = true;
+	GetCharacterMovement()->StopMovementImmediately();
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void ABasePlayer::BeginPlay()
@@ -66,6 +78,12 @@ void ABasePlayer::MoveRight(float Value)
 	FRotator MakeRotation = FRotator(0.f, GetControlRotation().Yaw, 0.f);
 
 	AddMovementInput(FRotationMatrix(MakeRotation).GetScaledAxis(EAxis::Y), Value);
+}
+
+void ABasePlayer::CharacterDeathFinished()
+{
+	Super::CharacterDeathFinished();
+	OnPlayerDied.Broadcast();
 }
 
 

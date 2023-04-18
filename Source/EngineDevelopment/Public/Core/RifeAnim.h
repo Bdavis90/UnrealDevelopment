@@ -6,6 +6,7 @@
 #include "Animation/AnimInstance.h"
 #include "RifeAnim.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeathEndDispatcher);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FActionCompleteDispatcher);
 
 UCLASS()
@@ -25,6 +26,9 @@ public:
 
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 		FActionCompleteDispatcher OnComplete;
+
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+		FDeathEndDispatcher OnDeathFinished;
 
 	UFUNCTION(BlueprintCallable)
 		void AnimationComplete();
@@ -60,10 +64,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
 		bool DebugDamaged;
 
-	UFUNCTION(BlueprintCallable)
+	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 		void PlayDeathAnimation(float Ratio);
+		//void PlayDeathAnimation_Implementation(float Ratio);
 
 	UFUNCTION(BlueprintCallable)
 		void PlayDamagedAnimation(float Ratio);
+
+	UFUNCTION(BlueprintCallable)
+		void SetDeathTimerEvent();
+
+	UFUNCTION(BlueprintCallable)
+		void DeathFinished();
 
 };

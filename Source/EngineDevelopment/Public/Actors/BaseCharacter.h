@@ -25,28 +25,42 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 	UPROPERTY(VisibleAnywhere, Category = "Child Component")
 	class UChildActorComponent* WeaponChild;
+
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	class ABaseWeapon* WeaponClass;
+
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	class ABaseWeapon* CurrentWeapon;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class URifeAnim* ABP_Rifle;
+
 	UFUNCTION(BlueprintCallable)
 	void PlayShootAnimation();
-	UFUNCTION()
+
+	UFUNCTION(BlueprintCallable)
 	void StopAnimation();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UAnimSequence* ShootAsset;
-	UFUNCTION()
+
+	UFUNCTION(BlueprintCallable)
 	void CharacterShoot();
-	UFUNCTION()
+
+	UFUNCTION(BlueprintCallable)
 	virtual void CharacterDeath(float Ratio);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
 		class UHealthComponent* HealthComponent;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void CharacterDamage(float Ratio);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void CharacterDeathFinished();
+
 
 };

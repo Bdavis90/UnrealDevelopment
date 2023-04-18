@@ -60,13 +60,35 @@ void URifeAnim::PersonaUpdate_Implementation()
 	}
 }
 
+//void URifeAnim::PlayDeathAnimation_Implementation(float Ratio)
+//{
+//	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
+//	CurrentDeath = DeathAnimations[DeathIndex];
+//	SetDeathTimerEvent();
+//}
+
 void URifeAnim::PlayDeathAnimation(float Ratio)
 {
 	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
 	CurrentDeath = DeathAnimations[DeathIndex];
+	SetDeathTimerEvent();
 }
 
 void URifeAnim::PlayDamagedAnimation(float Ratio)
 {
 	PlaySlotAnimationAsDynamicMontage(DamagedAnimation, TEXT("Damage"));
+}
+
+void URifeAnim::SetDeathTimerEvent()
+{
+	if (CurrentDeath)
+	{
+		FTimerHandle Handle;
+		GetWorld()->GetTimerManager().SetTimer(Handle, this, &URifeAnim::DeathFinished, CurrentDeath->GetPlayLength(), false);
+	}
+}
+
+void URifeAnim::DeathFinished()
+{
+	OnDeathFinished.Broadcast();
 }

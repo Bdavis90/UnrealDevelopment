@@ -46,6 +46,7 @@ void ABaseCharacter::BeginPlay()
 		return;
 	}
 	ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
+	ABP_Rifle->OnDeathFinished.AddDynamic(this, &ABaseCharacter::CharacterDeathFinished);
 	HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::CharacterDeath);
 	HealthComponent->OnDamage.AddDynamic(ABP_Rifle, &URifeAnim::PlayDamagedAnimation);
 }
@@ -89,6 +90,10 @@ void ABaseCharacter::CharacterDeath(float Ratio)
 void ABaseCharacter::CharacterDamage(float Ratio)
 {
 	ABP_Rifle->PlayDamagedAnimation(Ratio);
+}
+
+void ABaseCharacter::CharacterDeathFinished()
+{
 }
 
 
