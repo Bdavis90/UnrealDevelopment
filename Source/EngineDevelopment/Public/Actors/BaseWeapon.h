@@ -31,6 +31,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	USkeletalMeshComponent* SkeletalMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+		float Current;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+		float Max;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -54,6 +59,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	FRotator GetShotRotation();
+
+	UFUNCTION(BlueprintCallable)
+	void Reload();
+
+	UFUNCTION(BlueprintCallable)
+	void UseAmmo();
 
 
 	

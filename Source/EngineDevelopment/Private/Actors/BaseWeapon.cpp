@@ -19,6 +19,8 @@ ABaseWeapon::ABaseWeapon()
 	ConstructorHelpers::FObjectFinder<USkeletalMesh>Asset(TEXT("SkeletalMesh'/Game/END_Starter/Guns/Rifle/SK_Rifle.SK_Rifle'"));
 	SkeletalMesh->SetSkeletalMesh(Asset.Object);
 	SetRootComponent(SkeletalMesh);
+
+	Max = 5;
 }
 
 // Called when the game starts or when spawned
@@ -31,11 +33,13 @@ void ABaseWeapon::BeginPlay()
 		UE_LOG(Game, Error, TEXT("We need a pawn to own this weapon"));
 		return;
 	}
+
+	Reload();
 }
 
 bool ABaseWeapon::CanShoot() const
 {
-	if(!Animating && !Dead)
+	if(!Animating && !Dead && Current > 0)
 		return true;
 	return false;
 }
@@ -60,6 +64,7 @@ void ABaseWeapon::Shoot()
 		Animating = true;
 
 		OnShoot.Broadcast();
+		UseAmmo();
 	}
 
 }
@@ -95,5 +100,15 @@ FRotator ABaseWeapon::GetShotRotation()
 	}
 
 	return Rotation;
+}
+
+void ABaseWeapon::Reload()
+{
+	Current = Max;
+}
+
+void ABaseWeapon::UseAmmo()
+{
+	Current = FMath::Clamp(Current - 1, 0.f, Max);
 }
 
