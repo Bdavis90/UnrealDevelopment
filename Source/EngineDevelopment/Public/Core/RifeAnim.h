@@ -64,9 +64,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
 		bool DebugDamaged;
 
-	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 		void PlayDeathAnimation(float Ratio);
-		//void PlayDeathAnimation_Implementation(float Ratio);
+		void PlayDeathAnimation_Implementation(float Ratio);
 
 	UFUNCTION(BlueprintCallable)
 		void PlayDamagedAnimation(float Ratio);

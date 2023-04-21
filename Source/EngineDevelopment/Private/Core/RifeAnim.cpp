@@ -60,19 +60,19 @@ void URifeAnim::PersonaUpdate_Implementation()
 	}
 }
 
-//void URifeAnim::PlayDeathAnimation_Implementation(float Ratio)
-//{
-//	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
-//	CurrentDeath = DeathAnimations[DeathIndex];
-//	SetDeathTimerEvent();
-//}
-
-void URifeAnim::PlayDeathAnimation(float Ratio)
+void URifeAnim::PlayDeathAnimation_Implementation(float Ratio)
 {
 	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
 	CurrentDeath = DeathAnimations[DeathIndex];
 	SetDeathTimerEvent();
 }
+
+//void URifeAnim::PlayDeathAnimation(float Ratio)
+//{
+//	DeathIndex = FMath::RandRange(0, DeathAnimations.Num() - 1);
+//	CurrentDeath = DeathAnimations[DeathIndex];
+//	SetDeathTimerEvent();
+//}
 
 void URifeAnim::PlayDamagedAnimation(float Ratio)
 {
