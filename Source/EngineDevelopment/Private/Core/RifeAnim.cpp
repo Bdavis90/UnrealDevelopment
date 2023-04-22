@@ -100,3 +100,8 @@ void URifeAnim::PlayReloadAnimation()
 {
 	PlaySlotAnimationAsDynamicMontage(ReloadAnimation, TEXT("Action"));
 }
+
+void URifeAnim::ReloadWeapon()
+{
+	OnReload.Broadcast();
+}

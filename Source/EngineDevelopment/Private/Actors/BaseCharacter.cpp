@@ -32,8 +32,6 @@ void ABaseCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
-	CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
-	CurrentWeapon->OnAmmoChanged.AddDynamic(this, &ABaseCharacter::CharacterAmmoChanged);
 	if (!CurrentWeapon)
 	{
 		UE_LOG(Game, Error, TEXT("Character needs a weapon"));
@@ -46,8 +44,12 @@ void ABaseCharacter::BeginPlay()
 		UE_LOG(Game, Error, TEXT("Character needs a ABP_Rifle"));
 		return;
 	}
-	ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::StopAnimation);
+	CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
+	CurrentWeapon->OnAmmoChanged.AddDynamic(this, &ABaseCharacter::CharacterAmmoChanged);
+	CurrentWeapon->OnReloadStart.AddDynamic(ABP_Rifle, &URifeAnim::PlayReloadAnimation);
+	ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::WeaponActionEnded);
 	ABP_Rifle->OnDeathFinished.AddDynamic(this, &ABaseCharacter::CharacterDeathFinished);
+	ABP_Rifle->OnReload.AddDynamic(this, &ABaseCharacter::WeaponActionEnded);
 	HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::CharacterDeath);
 	HealthComponent->OnDamage.AddDynamic(ABP_Rifle, &URifeAnim::PlayDamagedAnimation);
 }
@@ -99,6 +101,17 @@ void ABaseCharacter::CharacterDeathFinished()
 
 void ABaseCharacter::CharacterAmmoChanged(float Current, float Max)
 {
+}
+
+void ABaseCharacter::CharacterReload()
+{
+	CurrentWeapon->CheckStartReload();
+	CurrentWeapon->Reload();
+}
+
+void ABaseCharacter::WeaponActionEnded()
+{
+	CurrentWeapon->Animating = false;
 }
 
 

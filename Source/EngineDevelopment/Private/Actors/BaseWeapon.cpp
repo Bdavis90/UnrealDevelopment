@@ -114,3 +114,12 @@ void ABaseWeapon::UseAmmo()
 	OnAmmoChanged.Broadcast(Current, Max);
 }
 
+void ABaseWeapon::CheckStartReload()
+{
+	if (!Animating)
+	{
+		Animating = true;
+		OnReloadStart.Broadcast();
+	}
+}
+

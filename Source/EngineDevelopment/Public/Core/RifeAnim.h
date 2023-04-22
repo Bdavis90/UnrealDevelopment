@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeathEndDispatcher);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FActionCompleteDispatcher);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReloadDispatcher);
 
 UCLASS()
 class ENGINEDEVELOPMENT_API URifeAnim : public UAnimInstance
@@ -29,6 +30,9 @@ public:
 
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 		FDeathEndDispatcher OnDeathFinished;
+
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+		FReloadDispatcher OnReload;
 
 	UFUNCTION(BlueprintCallable)
 		void AnimationComplete();
@@ -85,5 +89,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void PlayReloadAnimation();
+
+	UFUNCTION(BlueprintCallable)
+		void ReloadWeapon();
 
 };

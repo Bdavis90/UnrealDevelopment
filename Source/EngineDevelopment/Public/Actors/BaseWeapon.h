@@ -8,6 +8,7 @@
 #include "BaseWeapon.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShootDispatcher);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReloadStartDispatcher);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAmmoDispatcher, float, Current, float, Max);
 
 
@@ -24,8 +25,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	bool Animating = false;
-
 	UFUNCTION(BlueprintCallable, Category = "Function")
 	bool CanShoot() const;
 
@@ -34,12 +33,15 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
 		float Current;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
 		float Max;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	bool Animating = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 	APawn* OwningPawn;
@@ -57,6 +59,9 @@ public:
 	FShootDispatcher OnShoot;
 
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
+	FReloadStartDispatcher OnReloadStart;
+
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 	FAmmoDispatcher OnAmmoChanged;
 
 	bool Dead = false;
@@ -69,6 +74,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UseAmmo();
+
+	UFUNCTION(BlueprintCallable)
+	void CheckStartReload();
 
 
 	

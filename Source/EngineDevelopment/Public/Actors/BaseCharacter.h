@@ -65,5 +65,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void CharacterAmmoChanged(float Current, float Max);
 
+	UFUNCTION()
+	virtual void CharacterReload();
+
+	UFUNCTION()
+	virtual void WeaponActionEnded();
+
 
 };
