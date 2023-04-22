@@ -52,4 +52,6 @@ public:
 
 	void CharacterDeathFinished() override;
 
+	void CharacterAmmoChanged(float Current, float Max) override;
+
 };

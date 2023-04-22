@@ -46,9 +46,7 @@ void URifeAnim::PersonaUpdate_Implementation()
 	{
 		DebugShoot = false;
 		PlayShootAnimation();
-	}
-
-	if (DebugDeath)
+	}else if (DebugDeath)
 	{
 		DebugDeath = false;
 		PlayDeathAnimation(0);
@@ -57,6 +55,11 @@ void URifeAnim::PersonaUpdate_Implementation()
 	{
 		DebugDamaged = false;
 		PlayDamagedAnimation(0);
+	}
+	else if (DebugReload)
+	{
+		DebugReload = false;
+		PlayReloadAnimation();
 	}
 }
 
@@ -91,4 +94,9 @@ void URifeAnim::SetDeathTimerEvent()
 void URifeAnim::DeathFinished()
 {
 	OnDeathFinished.Broadcast();
+}
+
+void URifeAnim::PlayReloadAnimation()
+{
+	PlaySlotAnimationAsDynamicMontage(ReloadAnimation, TEXT("Action"));
 }

@@ -21,7 +21,6 @@ protected:
 	UPROPERTY(BlueprintReadonly, meta = (BindWidget))
 	class UImage* Reticle = nullptr;
 
-
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 		UMaterialInstanceDynamic* DynamicMaterial = nullptr;
 
@@ -34,6 +33,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bValidHit = false;
 
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+		class UTextBlock* CurrentAmmo;
+
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+		class UTextBlock* MaxAmmo;
+
 public:
 	UMyUserWidget(const FObjectInitializer& ObjectInitializer);
 	void NativeConstruct() override;
@@ -45,6 +50,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void SetMatColor(FLinearColor Color);
+
+	UFUNCTION(BlueprintCallable)
+		void SetAmmo(float Current, float Max);
 
 	UFUNCTION()
 		void GetLinePoints(FVector& _StartPoint, FVector& _EndPoint) const;

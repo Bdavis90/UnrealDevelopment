@@ -33,6 +33,7 @@ void ABaseCharacter::BeginPlay()
 
 	CurrentWeapon = Cast<ABaseWeapon>(WeaponChild->GetChildActor());
 	CurrentWeapon->OnShoot.AddDynamic(this, &ABaseCharacter::PlayShootAnimation);
+	CurrentWeapon->OnAmmoChanged.AddDynamic(this, &ABaseCharacter::CharacterAmmoChanged);
 	if (!CurrentWeapon)
 	{
 		UE_LOG(Game, Error, TEXT("Character needs a weapon"));
@@ -93,6 +94,10 @@ void ABaseCharacter::CharacterDamage(float Ratio)
 }
 
 void ABaseCharacter::CharacterDeathFinished()
+{
+}
+
+void ABaseCharacter::CharacterAmmoChanged(float Current, float Max)
 {
 }
 

@@ -6,6 +6,7 @@
 #include "Components/Image.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Components/TextBlock.h"
 
 UMyUserWidget::UMyUserWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -95,4 +96,11 @@ void UMyUserWidget::GetAimedPoint(bool& Valid, FVector& Hit, FVector& End) const
 	Valid = bValidHit;
 	Hit = HitLocation;
 	End = EndPoint;
+}
+
+void UMyUserWidget::SetAmmo(float Current, float Max)
+{
+	
+	CurrentAmmo->SetText(FText::AsNumber(Current));
+	MaxAmmo->SetText(FText::AsNumber(Max));
 }

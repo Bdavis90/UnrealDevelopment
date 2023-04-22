@@ -64,6 +64,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
 		bool DebugDamaged;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+		bool DebugReload;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+		class UAnimSequence* ReloadAnimation;
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 		void PlayDeathAnimation(float Ratio);
 		void PlayDeathAnimation_Implementation(float Ratio);
@@ -76,5 +82,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void DeathFinished();
+
+	UFUNCTION(BlueprintCallable)
+		void PlayReloadAnimation();
 
 };

@@ -50,6 +50,7 @@ void ABasePlayer::BeginPlay()
 	}
 	HUD = CreateWidget<UMyUserWidget>(PlayerController, WidgetClass);
 	HUD->AddToViewport();
+	CurrentWeapon->Reload();
 
 	HealthComponent->OnDamage.AddDynamic(HUD, &UMyUserWidget::SetHealth);
 	HealthComponent->OnDeath.AddDynamic(HUD, &UMyUserWidget::SetHealth);
@@ -84,6 +85,12 @@ void ABasePlayer::CharacterDeathFinished()
 {
 	Super::CharacterDeathFinished();
 	OnPlayerDied.Broadcast();
+}
+
+void ABasePlayer::CharacterAmmoChanged(float Current, float Max)
+{
+	Super::CharacterAmmoChanged(Current, Max);
+	HUD->SetAmmo(Current, Max);
 }
 
 

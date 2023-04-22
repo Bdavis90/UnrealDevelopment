@@ -105,10 +105,12 @@ FRotator ABaseWeapon::GetShotRotation()
 void ABaseWeapon::Reload()
 {
 	Current = Max;
+	OnAmmoChanged.Broadcast(Current, Max);
 }
 
 void ABaseWeapon::UseAmmo()
 {
 	Current = FMath::Clamp(Current - 1, 0.f, Max);
+	OnAmmoChanged.Broadcast(Current, Max);
 }
 

@@ -54,13 +54,16 @@ public:
 	virtual void CharacterDeath(float Ratio);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
-		class UHealthComponent* HealthComponent;
+	class UHealthComponent* HealthComponent;
 
 	UFUNCTION(BlueprintCallable)
-		void CharacterDamage(float Ratio);
+	void CharacterDamage(float Ratio);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void CharacterDeathFinished();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void CharacterAmmoChanged(float Current, float Max);
 
 
 };

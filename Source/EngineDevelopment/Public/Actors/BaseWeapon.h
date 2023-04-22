@@ -8,6 +8,7 @@
 #include "BaseWeapon.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShootDispatcher);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAmmoDispatcher, float, Current, float, Max);
 
 
 UCLASS()
@@ -54,6 +55,9 @@ public:
 
 	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
 	FShootDispatcher OnShoot;
+
+	UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = Fucntion)
+	FAmmoDispatcher OnAmmoChanged;
 
 	bool Dead = false;
 	
