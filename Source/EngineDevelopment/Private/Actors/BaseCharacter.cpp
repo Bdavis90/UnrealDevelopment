@@ -49,7 +49,7 @@ void ABaseCharacter::BeginPlay()
 	CurrentWeapon->OnReloadStart.AddDynamic(ABP_Rifle, &URifeAnim::PlayReloadAnimation);
 	ABP_Rifle->OnComplete.AddDynamic(this, &ABaseCharacter::WeaponActionEnded);
 	ABP_Rifle->OnDeathFinished.AddDynamic(this, &ABaseCharacter::CharacterDeathFinished);
-	ABP_Rifle->OnReload.AddDynamic(this, &ABaseCharacter::WeaponActionEnded);
+	ABP_Rifle->OnReload.AddDynamic(CurrentWeapon, &ABaseWeapon::Reload);
 	HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::CharacterDeath);
 	HealthComponent->OnDamage.AddDynamic(ABP_Rifle, &URifeAnim::PlayDamagedAnimation);
 }
@@ -106,7 +106,6 @@ void ABaseCharacter::CharacterAmmoChanged(float Current, float Max)
 void ABaseCharacter::CharacterReload()
 {
 	CurrentWeapon->CheckStartReload();
-	CurrentWeapon->Reload();
 }
 
 void ABaseCharacter::WeaponActionEnded()

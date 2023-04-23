@@ -54,6 +54,5 @@ public:
 
 	void CharacterAmmoChanged(float Current, float Max) override;
 
-	void Reload();
 
 };

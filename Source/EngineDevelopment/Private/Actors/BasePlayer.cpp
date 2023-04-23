@@ -67,7 +67,7 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABasePlayer::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABasePlayer::MoveRight);
 	PlayerInputComponent->BindAction("Shoot", IE_Pressed, this, &ABaseCharacter::CharacterShoot);
-	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ABasePlayer::Reload);
+	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ABaseCharacter::CharacterReload);
 }
 
 void ABasePlayer::MoveForward(float Value)
@@ -96,10 +96,6 @@ void ABasePlayer::CharacterAmmoChanged(float Current, float Max)
 	HUD->SetAmmo(Current, Max);
 }
 
-void ABasePlayer::Reload()
-{
-	CharacterReload();
-}
 
 
 

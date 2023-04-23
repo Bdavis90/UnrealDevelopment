@@ -71,5 +71,4 @@ public:
 	UFUNCTION()
 	virtual void WeaponActionEnded();
 
-
 };

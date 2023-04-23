@@ -93,4 +93,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ReloadWeapon();
 
+
+	UFUNCTION(BlueprintCallable)
+		void ReloadComplete();
+
 };

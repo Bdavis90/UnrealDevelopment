@@ -105,3 +105,8 @@ void URifeAnim::ReloadWeapon()
 {
 	OnReload.Broadcast();
 }
+
+void URifeAnim::ReloadComplete()
+{
+	OnComplete.Broadcast();
+}
