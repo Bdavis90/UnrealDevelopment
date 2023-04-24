@@ -103,6 +103,10 @@ void ABaseCharacter::CharacterAmmoChanged(float Current, float Max)
 {
 }
 
+void ABaseCharacter::CharacterWeaponActionEnded()
+{
+}
+
 void ABaseCharacter::CharacterReload()
 {
 	CurrentWeapon->CheckStartReload();

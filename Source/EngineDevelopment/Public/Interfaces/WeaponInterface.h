@@ -23,5 +23,9 @@ class ENGINEDEVELOPMENT_API IWeaponInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintCallable)
-		virtual void Shoot() = 0;
+	virtual void Shoot() = 0;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void Reload() = 0;
+		
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Actors/BaseCharacter.h"
 #include "../Interfaces/WeaponInterface.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
 #include "BaseAI.generated.h"
 
 /**
@@ -21,10 +22,21 @@ protected:
 public:
 	// Inherited via IWeaponInterface
 	virtual void Shoot() override;
+	virtual void Reload() override;
+
+	void BeginPlay() override;
 
 	void CharacterDeath(float _Ratio) override;
 
 	void CharacterDeathFinished() override;
+
+	void CharacterAmmoChanged(float Current, float Max) override;
+
+	void CharacterWeaponActionEnded() override;
+
+ 
+
+
 
 };
 
