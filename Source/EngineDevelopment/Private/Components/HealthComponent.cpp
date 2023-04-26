@@ -2,6 +2,7 @@
 
 
 #include "Components/HealthComponent.h"
+#include "DamageTypes/DamageTypeFire.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -21,7 +22,7 @@ void UHealthComponent::BeginPlay()
 
 	SetStartHealth();
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::HandleDamage);
-	
+		
 }
 
 
@@ -42,14 +43,35 @@ void UHealthComponent::HandleDamage(AActor* DamagedActor, float Damage, const UD
 {
 	Current = FMath::Clamp<float>(Current - Damage, 0, Max);
 
-	UE_LOG(LogTemp, Warning, TEXT("Current Health %f"), Current);
+	if (DamageType->IsA<UDamageTypeFire>())
+	{
+		//UDamageTypeFire* Fire = Cast<UDamageTypeFire>(DamageType->GetClass()->GetDefaultObject());
+		//if (Fire)
+		//	Fire->StartEffect(DamagedActor, DamageCauser);
+	}
+
 	if (Current > 0)
 	{
-		OnDamage.Broadcast(Current / Max);
+		if (Damage > 0)
+		{
+			OnDamage.Broadcast(Current / Max);
+		}
+		else
+		{
+			OnHealthGained.Broadcast(Current / Max);
+		}
 		return;
 	}
 
 	GetOwner()->OnTakeAnyDamage.RemoveDynamic(this, &UHealthComponent::HandleDamage);
 	OnDeath.Broadcast(0);
+}
+
+bool UHealthComponent::IsFullHealth() const
+{
+	if (Current / Max > .99)
+		return true;
+
+	return false;
 }
 

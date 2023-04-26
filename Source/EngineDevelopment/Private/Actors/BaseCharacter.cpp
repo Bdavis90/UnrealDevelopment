@@ -52,6 +52,7 @@ void ABaseCharacter::BeginPlay()
 	ABP_Rifle->OnReload.AddDynamic(CurrentWeapon, &ABaseWeapon::Reload);
 	HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::CharacterDeath);
 	HealthComponent->OnDamage.AddDynamic(ABP_Rifle, &URifeAnim::PlayDamagedAnimation);
+	HealthComponent->OnHealthGained.AddDynamic(this, &ABaseCharacter::CharacterHeal);
 }
 
 // Called every frame
@@ -112,9 +113,20 @@ void ABaseCharacter::CharacterReload()
 	CurrentWeapon->CheckStartReload();
 }
 
+void ABaseCharacter::CharacterHeal(float Ratio)
+{
+}
+
 void ABaseCharacter::WeaponActionEnded()
 {
 	CurrentWeapon->Animating = false;
+}
+
+bool ABaseCharacter::CanPickupHealth()
+{
+	if (!HealthComponent->IsFullHealth())
+		return true;
+	return false;
 }
 
 

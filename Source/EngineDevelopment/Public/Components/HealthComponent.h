@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDamageDispatcher, float, Ratio);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDeathDispatcher, float, Ratio);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthGainedDispatcher, float, Ratio);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ENGINEDEVELOPMENT_API UHealthComponent : public UActorComponent
@@ -33,8 +34,12 @@ public:
 	float Current;
 	UFUNCTION()
 	void HandleDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+	UFUNCTION()
+		bool IsFullHealth() const;
 	UPROPERTY()
 	FDamageDispatcher OnDamage;
 	UPROPERTY()
-	FDeathDispatcher OnDeath;
+	FDeathDispatcher OnDeath;	
+	UPROPERTY()
+	FHealthGainedDispatcher OnHealthGained;
 };

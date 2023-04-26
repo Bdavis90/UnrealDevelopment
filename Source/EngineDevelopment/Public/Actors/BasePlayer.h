@@ -54,5 +54,9 @@ public:
 
 	void CharacterAmmoChanged(float Current, float Max) override;
 
+	void CharacterHeal(float Ratio) override;
+
+	bool CanPickupHealth() override;
+
 
 };

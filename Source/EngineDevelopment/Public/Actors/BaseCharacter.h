@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../Interfaces/PickupHelper.h"
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
 UCLASS(Abstract)
-class ENGINEDEVELOPMENT_API ABaseCharacter : public ACharacter
+class ENGINEDEVELOPMENT_API ABaseCharacter : public ACharacter, public IPickupHelper
 {
 	GENERATED_BODY()
 
@@ -69,9 +70,16 @@ public:
 	virtual void CharacterWeaponActionEnded();
 
 	UFUNCTION()
-	virtual void CharacterReload();
+	virtual void CharacterReload();	
+
+	UFUNCTION()
+	virtual void CharacterHeal(float Ratio);
 
 	UFUNCTION()
 	virtual void WeaponActionEnded();
+
+
+	// Inherited via IPickupHelper
+	virtual bool CanPickupHealth() override;
 
 };

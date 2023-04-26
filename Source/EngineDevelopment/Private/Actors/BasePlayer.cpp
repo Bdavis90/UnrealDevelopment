@@ -96,6 +96,23 @@ void ABasePlayer::CharacterAmmoChanged(float Current, float Max)
 	HUD->SetAmmo(Current, Max);
 }
 
+void ABasePlayer::CharacterHeal(float Ratio)
+{
+	Super::CharacterHeal(Ratio);
+
+	HUD->SetHealth(Ratio);
+}
+
+bool ABasePlayer::CanPickupHealth()
+{
+	if (!HealthComponent->IsFullHealth())
+	{
+		return true;
+	}
+
+	return false;
+}
+
 
 
 
