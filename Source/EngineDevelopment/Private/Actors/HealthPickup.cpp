@@ -5,11 +5,11 @@
 #include "Kismet/GameplayStatics.h"
 #include "Actors/BasePlayer.h"
 
-//void AHealthPickup::HandleNoPickup()
-//{
-//	UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation());
-//}
-//
+void AHealthPickup::HandleNoPickup()
+{
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), Sound, GetActorLocation());
+}
+
 void AHealthPickup::HandlePostPickup()
 {
 	Destroy();

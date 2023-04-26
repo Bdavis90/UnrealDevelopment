@@ -17,7 +17,7 @@ ADamagePickup::ADamagePickup()
 void ADamagePickup::HandlePickup(AActor* OtherActor, FHitResult SweepResult)
 {
 	if (!DamageTypeClass)
-		UE_LOG(LogTemp, Error, TEXT("Damge Type is null!"));
+		UE_LOG(LogTemp, Error, TEXT("Damage Type must be set!"));
 	UGameplayStatics::ApplyDamage(OtherActor, Damage, nullptr, this, DamageTypeClass);
 }
 

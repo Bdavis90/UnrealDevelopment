@@ -39,10 +39,10 @@ void ABasePickup::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 		HandlePickup(OtherActor, SweepResult);
 		HandlePostPickup();
 	}
-	//else
-	//{
-	//	HandleNoPickup();
-	//}
+	else
+	{
+		HandleNoPickup();
+	}
 }
 
 
@@ -59,4 +59,8 @@ void ABasePickup::HandlePostPickup()
 bool ABasePickup::ShouldActivate(AActor* OtherActor) const
 {
 	return true;
+}
+
+void ABasePickup::HandleNoPickup()
+{
 }

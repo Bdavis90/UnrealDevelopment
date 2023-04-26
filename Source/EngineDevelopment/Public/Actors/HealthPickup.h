@@ -19,7 +19,7 @@ protected:
 		USoundBase* Sound;
 
 public:
-	//void HandleNoPickup() override;
+	void HandleNoPickup() override;
 
 	void HandlePostPickup() override;
 

@@ -9,6 +9,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/HealthComponent.h"
+#include "Components/EffectComponent.h"
 
 
 // Sets default values
@@ -21,6 +22,8 @@ ABaseCharacter::ABaseCharacter()
 
 	WeaponChild = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponChild"));
 	WeaponChild->SetupAttachment(GetMesh(), TEXT("WeaponSocket"));
+
+	EffectComponent = CreateDefaultSubobject<UEffectComponent>(TEXT("EffectComponent"));
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 
@@ -124,8 +127,6 @@ void ABaseCharacter::WeaponActionEnded()
 
 bool ABaseCharacter::CanPickupHealth()
 {
-	if (!HealthComponent->IsFullHealth())
-		return true;
 	return false;
 }
 

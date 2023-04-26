@@ -22,10 +22,10 @@ protected:
 		float Damage = 1;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<UDamageType> DamageTypeClass = nullptr;
+		TSubclassOf<UDamageType> DamageTypeClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		UParticleSystemComponent* ParticleSystem = nullptr;
+		UParticleSystemComponent* ParticleSystem;
 
 public:
 

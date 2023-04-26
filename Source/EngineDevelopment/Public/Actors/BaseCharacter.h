@@ -39,6 +39,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class URifeAnim* ABP_Rifle;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UEffectComponent* EffectComponent;
+
 	UFUNCTION(BlueprintCallable)
 	void PlayShootAnimation();
 

@@ -106,9 +106,7 @@ void ABasePlayer::CharacterHeal(float Ratio)
 bool ABasePlayer::CanPickupHealth()
 {
 	if (!HealthComponent->IsFullHealth())
-	{
 		return true;
-	}
 
 	return false;
 }

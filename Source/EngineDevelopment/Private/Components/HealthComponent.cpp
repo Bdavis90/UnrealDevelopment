@@ -41,15 +41,13 @@ void UHealthComponent::SetStartHealth()
 
 void UHealthComponent::HandleDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	Current = FMath::Clamp<float>(Current - Damage, 0, Max);
-
-	if (DamageType->IsA<UDamageTypeFire>())
+	UDamageTypeFire* Fire = Cast<UDamageTypeFire>(DamageType->GetClass()->GetDefaultObject());
+	if (Fire)
 	{
-		//UDamageTypeFire* Fire = Cast<UDamageTypeFire>(DamageType->GetClass()->GetDefaultObject());
-		//if (Fire)
-		//	Fire->StartEffect(DamagedActor, DamageCauser);
+		Fire->StartEffect(DamagedActor, DamageCauser);
 	}
 
+	Current = FMath::Clamp<float>(Current - Damage, 0, Max);
 	if (Current > 0)
 	{
 		if (Damage > 0)

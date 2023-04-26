@@ -38,4 +38,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 		virtual bool ShouldActivate(AActor* OtherActor) const;
 
+	UFUNCTION(BlueprintCallable)
+		virtual void HandleNoPickup();
+
 };
